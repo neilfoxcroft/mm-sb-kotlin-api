@@ -1,9 +1,10 @@
 package com.example.accountsservice.model
 
 import java.math.BigDecimal
+import java.util.*
 
 data class Account(
-    val id: String,
+    val id: UUID,
     val balance: BigDecimal,
     val userName: String,
     val password: String
