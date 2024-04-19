@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service
 class AccountService(val accountRepository: AccountRepository) {
 
     fun findAll(): MutableIterable<Account> = accountRepository.findAll()
+    fun create(account: Account): Account = accountRepository.save(account)
 }

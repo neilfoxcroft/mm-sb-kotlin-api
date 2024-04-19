@@ -5,9 +5,9 @@ import java.math.BigDecimal
 import java.util.UUID
 
 data class TransactionResponse(
-    val id: UUID,
-    val transactionType: TransactionTypes,
-    val amount: BigDecimal,
-    val sourceAccount: UUID,
-    val destinationAccount: UUID
+    val id: UUID?,
+    val transactionType: TransactionTypes?,
+    val amount: BigDecimal?,
+    val sourceAccount: UUID?,
+    val destinationAccount: UUID?
 )
