@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository
 interface AccountRepository : CrudRepository<Account, UUID> {
 
     fun findByUserName(username: String): Optional<Account>
-    fun findByAccountId(id: UUID): Optional<Account>
 }

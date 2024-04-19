@@ -10,7 +10,8 @@ import java.util.UUID
 @Entity
 data class Account(
     // TODO Handle nulls better
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     var id: UUID? = null,
     var balance: BigDecimal? = null,
     var userName: String? = null,
