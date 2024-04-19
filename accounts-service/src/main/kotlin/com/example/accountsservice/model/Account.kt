@@ -1,7 +1,7 @@
 package com.example.accountsservice.model
 
 import java.math.BigDecimal
-import java.util.*
+import java.util.UUID
 
 data class Account(
     val id: UUID,
