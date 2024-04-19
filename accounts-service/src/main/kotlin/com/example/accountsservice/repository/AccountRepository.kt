@@ -9,14 +9,24 @@ import org.springframework.stereotype.Repository
 class AccountRepository {
 
     private val accounts = listOf(
-        Account(id = UUID.randomUUID(), balance = BigDecimal("100.00"), userName = "John Doe", password = "password"),
+        Account(
+            id = UUID.randomUUID(),
+            balance = BigDecimal("100.00"),
+            userName = "John Doe",
+            password = "password"
+        ),
         Account(
             id = UUID.randomUUID(),
             balance = BigDecimal("10.00"),
             userName = "Mark Boucher",
             password = "password"
         ),
-        Account(id = UUID.randomUUID(), balance = BigDecimal("40.40"), userName = "Kevin Hart", password = "password"),
+        Account(
+            id = UUID.randomUUID(),
+            balance = BigDecimal("40.40"),
+            userName = "Kevin Hart",
+            password = "password"
+        ),
         Account(
             id = UUID.randomUUID(),
             balance = BigDecimal("99.99"),

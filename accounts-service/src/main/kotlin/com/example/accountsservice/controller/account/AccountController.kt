@@ -1,4 +1,4 @@
-package com.example.accountsservice.controller
+package com.example.accountsservice.controller.account
 
 import com.example.accountsservice.model.Account
 import com.example.accountsservice.service.AccountService
@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/account")
 class AccountController(val accountService: AccountService) {
-    @GetMapping
+
+    @GetMapping("/all")
     fun getAllAccounts(): List<AccountResponse> =
         accountService.findAll()
             .map { it.toResponse() }
