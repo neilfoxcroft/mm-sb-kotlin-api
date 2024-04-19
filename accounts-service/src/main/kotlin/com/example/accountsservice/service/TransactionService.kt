@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service
 @Service
 class TransactionService(val transactionRepository: TransactionRepository) {
 
-    fun findAll(): List<Transaction> = transactionRepository.findAll()
+    fun findAll(): MutableIterable<Transaction> = transactionRepository.findAll()
 }
