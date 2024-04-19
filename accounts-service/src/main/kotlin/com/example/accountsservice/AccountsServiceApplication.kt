@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class AccountsServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<AccountsServiceApplication>(*args)
+    runApplication<AccountsServiceApplication>(*args)
 }
