@@ -22,13 +22,11 @@ class AccountController(val accountService: AccountService) {
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/register")
-    fun registerAccount(@RequestBody accountRequest: AccountRequest): AccountResponse =
-        accountService.createAccount(account = accountRequest.toModel())?.toResponse() ?: throw ResponseStatusException(
-            HttpStatus.BAD_REQUEST, "Cannot register account"
-        )
+    fun registerAccount(@RequestBody accountRequest: Account): Account? =
+        accountService.createAccount(accountRequest)
 
     @GetMapping("/all")
-    fun findAll(): List<AccountResponse> = accountService.findAll().map { it.toResponse() }
+    fun findAll(): MutableIterable<Account> = accountService.findAll()
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Long): Optional<AccountResponse> =

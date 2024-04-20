@@ -8,23 +8,11 @@ import org.springframework.stereotype.Service
 @Service
 class AccountService(val accountRepository: AccountRepository) {
 
-    fun createAccount(account: Account): Account? {
-        val found = accountRepository.findByUserName(account.userName)
+    fun createAccount(account: Account): Account = accountRepository.save(account)
 
-        return if (found == null) {
-            accountRepository.save(account)
-            account
-        } else null
-    }
+    fun findById(id: Long): Optional<Account> = accountRepository.findById(id)
 
-    fun findById(id: Long): Optional<Account> =
-        accountRepository.findById(id)
+    fun findAll(): MutableIterable<Account> = accountRepository.findAll()
 
-    fun findAll(): MutableIterable<Account> =
-        accountRepository.findAll()
-
-    fun deleteByUUID(id: Long): Unit =
-        accountRepository.deleteById(id)
-
-
+    fun deleteByUUID(id: Long): Unit = accountRepository.deleteById(id)
 }
