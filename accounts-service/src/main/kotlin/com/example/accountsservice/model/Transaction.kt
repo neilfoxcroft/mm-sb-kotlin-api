@@ -10,12 +10,11 @@ import java.util.UUID
 
 @Entity
 data class Transaction(
-    // TODO Handle nulls better
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: UUID? = null,
-    val transactionType: TransactionTypes = TransactionTypes.TRANSFER,
-    val amount: BigDecimal = BigDecimal.ZERO,
-    val sourceAccount: UUID? = null,
-    val destinationAccount: UUID? = null
+    val id: Long = 0,
+    val transactionType: TransactionTypes,
+    val amount: BigDecimal,
+    val sourceAccount: UUID,
+    val destinationAccount: UUID
 )
