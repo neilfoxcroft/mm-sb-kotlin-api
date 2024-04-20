@@ -14,8 +14,8 @@ data class Transaction(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: UUID? = null,
-    val transactionType: TransactionTypes? = null,
-    val amount: BigDecimal? = null,
+    val transactionType: TransactionTypes = TransactionTypes.TRANSFER,
+    val amount: BigDecimal = BigDecimal.ZERO,
     val sourceAccount: UUID? = null,
     val destinationAccount: UUID? = null
 )

@@ -10,10 +10,11 @@ import java.util.UUID
 @Entity
 data class Account(
     // TODO Handle nulls better
+    // Still struggling with Nulls in Kotlin
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: UUID? = null,
-    var balance: BigDecimal? = null,
-    var userName: String? = null,
-    var password: String? = null
+    var balance: BigDecimal = BigDecimal.ZERO,
+    var userName: String = "NO USERNAME",
+    var password: String = "NO PASSWORD",
 )
