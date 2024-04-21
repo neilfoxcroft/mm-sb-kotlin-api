@@ -4,8 +4,6 @@ import com.example.accountsservice.model.Account
 import com.example.accountsservice.service.AccountService
 import java.math.BigDecimal
 import java.util.Optional
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,20 +18,25 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 @RequestMapping("/api/account")
 class AccountController(val accountService: AccountService) {
-    val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/register")
-    fun registerAccount(@RequestBody accountRequest: AccountRequest): AccountResponse =
-        accountService.createAccount(accountRequest.toModel()).toResponse()
+    fun registerAccount(@RequestBody accountRequest: AccountRequest): AccountResponse {
+        return accountService.createAccount(accountRequest.toModel()).toResponse()
+    }
+
 
     @GetMapping("/all")
-    fun findAll(): List<AccountResponse> = accountService.findAll().map { it.toResponse() }
+    fun findAll(): List<AccountResponse> {
+        return accountService.findAll().map { it.toResponse() }
+    }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): Optional<AccountResponse> =
-        accountService.findById(id).map { it.toResponse() } ?: throw ResponseStatusException(
+    fun findById(@PathVariable id: Long): Optional<AccountResponse> {
+        return accountService.findById(id).map { it.toResponse() } ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND, "Cannot find account"
         )
+    }
+
 
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long): ResponseEntity<String> {
