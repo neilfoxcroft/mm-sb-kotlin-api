@@ -24,7 +24,6 @@ class AccountController(val accountService: AccountService) {
         return accountService.createAccount(accountRequest.toModel()).toResponse()
     }
 
-
     @GetMapping("/all")
     fun findAll(): List<AccountResponse> {
         return accountService.findAll().map { it.toResponse() }
