@@ -1,17 +1,23 @@
 package com.example.accountsservice.model
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.math.BigDecimal
 
 @Entity
-data class Account(
+@Table(name = "account")
+class Account(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long = 0,
-    val balance: BigDecimal = BigDecimal.ZERO,
-    val userName: String,
-    val password: String,
+    val id: Long,
+    @Column(name = "username", unique = true)
+    var username: String? = null,
+    @Column(name = "password")
+    var password: String? = null,
+    @Column(name = "balance")
+    var balance: BigDecimal? = null,
 )

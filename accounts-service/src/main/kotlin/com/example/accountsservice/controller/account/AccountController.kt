@@ -2,6 +2,7 @@ package com.example.accountsservice.controller.account
 
 import com.example.accountsservice.model.Account
 import com.example.accountsservice.service.AccountService
+import java.math.BigDecimal
 import java.util.Optional
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -22,11 +23,11 @@ class AccountController(val accountService: AccountService) {
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/register")
-    fun registerAccount(@RequestBody accountRequest: Account): Account? =
-        accountService.createAccount(accountRequest)
+    fun registerAccount(@RequestBody accountRequest: AccountRequest): AccountResponse =
+        accountService.createAccount(accountRequest.toModel()).toResponse()
 
     @GetMapping("/all")
-    fun findAll(): MutableIterable<Account> = accountService.findAll()
+    fun findAll(): List<AccountResponse> = accountService.findAll().map { it.toResponse() }
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Long): Optional<AccountResponse> =
@@ -47,11 +48,12 @@ class AccountController(val accountService: AccountService) {
     }
 
     private fun AccountRequest.toModel(): Account = Account(
-        userName = this.userName, password = this.password
+        id = 0, balance = BigDecimal.ZERO, username = this.username, password = this.password
     )
 
     private fun Account.toResponse(): AccountResponse = AccountResponse(
         id = this.id,
-        userName = this.userName
+        username = this.username.toString(),
+        balance = this.balance
     )
 }
