@@ -40,14 +40,7 @@ class AccountController(val accountService: AccountService) {
 
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long): ResponseEntity<String> {
-        return try {
-            accountService.deleteByUUID(id)
-            ResponseEntity.status(HttpStatus.NO_CONTENT).body("Account deleted successfully.")
-        } catch (e: NoSuchElementException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found.")
-        } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete account: ${e.message}")
-        }
+        return accountService.deleteByUUID(id)
     }
 
     private fun AccountRequest.toModel(): Account = Account(
