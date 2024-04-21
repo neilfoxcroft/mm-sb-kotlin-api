@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.math.BigDecimal
-import java.util.UUID
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "transaction")
@@ -20,8 +20,10 @@ class Transaction(
     var transactionType: TransactionTypes? = null,
     @Column(name = "amount")
     var amount: BigDecimal? = null,
+    @Column(name = "transaction_date")
+    var date: LocalDateTime? = null,
     @Column(name = "source_account")
-    var sourceAccount: UUID? = null,
+    var sourceAccount: Long? = null,
     @Column(name = "destination_account")
-    var destinationAccount: UUID? = null,
+    var destinationAccount: Long? = null,
 )
