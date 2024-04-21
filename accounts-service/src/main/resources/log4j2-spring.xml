@@ -2,7 +2,6 @@
 <Configuration>
     <Appenders>
         <Console name="STDOUT">
-            <!--            <PatternLayout pattern="%m MDC%X%n"/>-->
             <PatternLayout
                     pattern="%style{%d{yyyy-MM-dd HH:mm:ss}}{bright cyan} [%highlight{%-5level}] %c{1} - %msg%n"
                     disableAnsi="false"/>
@@ -16,6 +15,9 @@
 
     <Loggers>
         <Logger name="com.example.accountsservice.controller.account.AccountController" level="trace">
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Logger name="com.example.accountsservice.service.AccountService" level="trace">
             <AppenderRef ref="File"/>
         </Logger>
         <Root level="info">
