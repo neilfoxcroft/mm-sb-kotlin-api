@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
@@ -26,6 +27,17 @@ class AppAuthenticationManager(
         if (!bCryptPasswordEncoder.matches(password, account.password)) {
             throw BadCredentialsException("Bad credentials")
         }
-        return UsernamePasswordAuthenticationToken(account.username, account.password)
+        val authorities = ArrayList<GrantedAuthority>()
+
+        return UsernamePasswordAuthenticationToken(account.username, account.password, authorities)
+    }
+
+    private fun isValidLong(code: String): Boolean {
+        try {
+            code.toLong()
+        } catch (e: NumberFormatException) {
+            return false
+        }
+        return true
     }
 }

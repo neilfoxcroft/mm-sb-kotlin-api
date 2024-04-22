@@ -8,12 +8,10 @@ import org.springframework.validation.annotation.Validated
 @Validated
 class SecurityProperties {
     @field:NotBlank
-    var secret = "my-32-character-ultra-secure-and-ultra-long-secret"
+    var secret = "this-is-a-realy-secure-secret-that-will-never-be-hacked"
 
-    @field:NotBlank
     var expirationTime: Int = 31 // in days
 
-    @field:NotBlank
     var strength = 10
 
     // constant

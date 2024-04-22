@@ -1,14 +1,12 @@
 package com.example.accountsservice.security
 
 import com.example.accountsservice.config.SecurityProperties
-import com.example.accountsservice.model.Account
-import com.example.accountsservice.service.AccountService
+import com.example.accountsservice.repository.AccountRepository
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import jakarta.annotation.PostConstruct
 import java.util.Calendar
 import java.util.Date
-import java.util.Optional
 import javax.crypto.SecretKey
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Component
 @Component
 class TokenProvider(
     private val securityProperties: SecurityProperties,
-    private val accountService: AccountService,
+    private val accountRepository: AccountRepository,
 ) {
     private var key: SecretKey? = null
 
@@ -49,8 +47,8 @@ class TokenProvider(
                 .clockSkewSeconds(3 * 60)
                 .build()
                 .parseSignedClaims(token.replace(securityProperties.tokenPrefix, ""))
-            val account: Optional<Account> = accountService.findByUsername(claims.payload.subject)
-            UsernamePasswordAuthenticationToken(account, token)
+            val accountDetail = accountRepository.findByUsername(claims.payload.subject)
+            UsernamePasswordAuthenticationToken(accountDetail, token)
         } catch (e: Exception) {
             return null
         }
@@ -63,4 +61,5 @@ class TokenProvider(
             return time
         }
     }
+
 }

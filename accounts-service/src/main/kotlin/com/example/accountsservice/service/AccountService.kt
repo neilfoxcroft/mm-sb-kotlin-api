@@ -12,17 +12,19 @@ import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
 @Service
-class AccountService(val accountRepository: AccountRepository) {
+class AccountService(
+    val accountRepository: AccountRepository,
+    val authenticationService: AuthenticationService
+) {
     val logger = LoggerFactory.getLogger(this::class.java)
     val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
+
     fun createAccount(account: Account): Account {
         if (!accountRepository.existsByUsername(account.username.toString())) {
-            // Create Hashed Password
+            logger.info("💾 Saving new account ${account.username}")
             val hashedPassword = passwordEncoder.encode(account.password)
             account.password = hashedPassword
-            accountRepository.save(account)
-            logger.info("💾 Saving new account ${account.username}")
-            return account
+            return accountRepository.save(account)
         } else {
             logger.error("❗Account ${account.username} already exists")
             throw ResponseStatusException(
@@ -30,6 +32,10 @@ class AccountService(val accountRepository: AccountRepository) {
                 "User with username: ${account.username} is already taken"
             )
         }
+    }
+
+    fun loginAccount(account: Account): String {
+        return authenticationService.login(account)
     }
 
     fun findById(id: Long): Optional<Account> {

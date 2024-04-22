@@ -4,6 +4,7 @@ import com.example.accountsservice.model.Account
 import com.example.accountsservice.service.AccountService
 import java.math.BigDecimal
 import java.util.Optional
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -18,10 +19,16 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 @RequestMapping("/api/account")
 class AccountController(val accountService: AccountService) {
+    val logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/register")
     fun registerAccount(@RequestBody accountRequest: AccountRequest): AccountResponse {
         return accountService.createAccount(accountRequest.toModel()).toResponse()
+    }
+
+    @PostMapping("/login")
+    fun loginAccount(@RequestBody accountRequest: AccountRequest): String {
+        return accountService.loginAccount(accountRequest.toModel())
     }
 
     @GetMapping("/all")
@@ -35,7 +42,6 @@ class AccountController(val accountService: AccountService) {
             HttpStatus.NOT_FOUND, "Cannot find account"
         )
     }
-
 
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long): ResponseEntity<String> {

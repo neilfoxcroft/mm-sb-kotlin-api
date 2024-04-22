@@ -1,7 +1,6 @@
 package com.example.accountsservice.config
 
 import com.example.accountsservice.security.JWTAuthenticationFilter
-import com.example.accountsservice.security.JWTAuthorizationFilter
 import com.example.accountsservice.security.TokenProvider
 import com.example.accountsservice.service.AppAuthenticationManager
 import org.springframework.context.annotation.Bean
@@ -15,12 +14,13 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 class WebConfig(
-    val securityProperties: SecurityProperties,
     val authenticationManager: AppAuthenticationManager,
+    val securityProperties: SecurityProperties,
     val tokenProvider: TokenProvider
 ) {
     @Bean
@@ -57,14 +57,13 @@ class WebConfig(
             }
             .authorizeHttpRequests { authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/api/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/actuator/health/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/actuator/info/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/account/register").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/account/login").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilter(JWTAuthenticationFilter(authenticationManager, securityProperties, tokenProvider))
-            .addFilter(JWTAuthorizationFilter(authenticationManager, securityProperties, tokenProvider))
             .build()
     }
 }

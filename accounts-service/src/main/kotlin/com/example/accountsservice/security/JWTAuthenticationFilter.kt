@@ -1,7 +1,7 @@
 package com.example.accountsservice.security
 
 import com.example.accountsservice.config.SecurityProperties
-import com.example.accountsservice.controller.account.AccountRequest
+import com.example.accountsservice.model.Account
 import com.example.accountsservice.service.AppAuthenticationManager
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -30,7 +30,7 @@ class JWTAuthenticationFilter(
         return try {
             val mapper = jacksonObjectMapper()
 
-            val creds = mapper.readValue<AccountRequest>(req.inputStream)
+            val creds = mapper.readValue<Account>(req.inputStream)
 
             authManager.authenticate(
                 UsernamePasswordAuthenticationToken(
