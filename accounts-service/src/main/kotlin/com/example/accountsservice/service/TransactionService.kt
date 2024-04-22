@@ -46,4 +46,9 @@ class TransactionService(val transactionRepository: TransactionRepository, val a
         return transaction
     }
 
+    fun findBySourceId(id: Long): List<Transaction> {
+        return transactionRepository.findAll()
+            .filter { it.sourceAccount == id }
+    }
+
 }

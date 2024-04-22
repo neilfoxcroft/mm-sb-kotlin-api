@@ -6,6 +6,7 @@ import com.example.accountsservice.service.TransactionService
 import java.time.LocalDateTime
 import java.util.Currency
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -29,6 +30,11 @@ class TransactionController(
     fun transferIntoAccount(@RequestBody transactionRequest: TransactionRequest): TransactionResponse =
         transactionService.transfer(transactionRequest)
             .toSuccessResponse()
+
+    @GetMapping("/report/{id}")
+    fun findRT(@PathVariable id: Long): List<Transaction> {
+        return transactionService.findBySourceId(id)
+    }
 
     private fun TransactionRequest.toModel(transactionType: TransactionTypes, currency: Currency): Transaction =
         Transaction(
