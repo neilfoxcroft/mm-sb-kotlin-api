@@ -61,7 +61,7 @@ class WebConfig(
                     .requestMatchers(HttpMethod.GET, "/actuator/info/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/account/register").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/account/login").permitAll()
-                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
             }
             .addFilter(JWTAuthenticationFilter(authenticationManager, securityProperties, tokenProvider))
             .build()
