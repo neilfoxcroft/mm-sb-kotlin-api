@@ -31,6 +31,8 @@ To use the Accounts Service, follow these steps:
 4. Build the application using Gradle Kotlin.
 5. Run the application using the generated JAR file or through your IDE.
 
+This repository includes a Postman collection named accounts-service.postman_collection, which contains a set of endpoints useful for testing the accounts service.
+
 ## Outstanding Items
 
 While the service is functional, there are still some areas for improvement and additional features to be implemented:
